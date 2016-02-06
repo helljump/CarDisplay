@@ -1,0 +1,32 @@
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath "com.badlogicgames.gdx:gdx-tools:1.9.1"
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven{ url "https://jitpack.io" }
+    }
+    ext{
+        gdxVersion = '1.9.1'
+    }
+
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+
+task makeAssets << {
+    logger.info "Calling TexturePacker"
+    TexturePacker.process("utils/sprites", "android/assets", "sprites")
+}
